@@ -103,16 +103,28 @@ class Funciones {
     }
 
     boolean esPrefijo(String s1, String s2) {
-        boolean res = true;
+        boolean res = s1.length() <= s2.length();
 
-        if (s1.length() <= s2.length()) {
-            for (int i = 0; i < s1.length(); i++) {
-                if (s1.charAt(i) != s2.charAt(i)) {
-                    res = false;
-                }
+        int index = 0;
+
+
+        while (res & index < s1.length() & index < s2.length()) {
+            if (s1.charAt(index) == s2.charAt(index)) {
+                index += 1;
+            } else {
+                res = false;
             }
-        } else {
-            res = false;
+        }
+
+        return res;
+    }
+
+    String invertirString(String s1) {
+        String res = "";
+        int index = s1.length()-1;
+
+        for (int i = index; i >= 0; i--) {
+            res += s1.charAt(i);
         }
 
         return res;
@@ -121,12 +133,26 @@ class Funciones {
     boolean esSufijo(String s1, String s2) {
         boolean res = true;
         
-        int s1index = s1.length()-1;
-        int s2index = s2.length()-1;
+        String auxS1 = invertirString(s1);
+        String auxS2 = invertirString(s2);
 
-        if (s1.length() <= s2.length()) {
-            for (int i = 0; i < s1.length(); i++) {
-                if (s1.charAt(i) != s2.charAt(i)) {
+        res = esPrefijo(auxS1, auxS2);
+
+        return res;
+    }
+
+/***  Segunda parte: Debugging ***/
+
+    boolean xor(boolean a, boolean b) {
+        return (a || b) && !(a && b);
+    }
+
+    boolean iguales(int[] xs, int[] ys) {
+        boolean res = true;
+
+        if (xs.length == ys.length) {
+            for (int i = 0; i < xs.length; i++) {
+                if (xs[i] != ys[i]) {
                     res = false;
                 }
             }
@@ -137,26 +163,9 @@ class Funciones {
         return res;
     }
 
-/***  Segunda parte: Debugging ***/
-
-    boolean xor(boolean a, boolean b) {
-        return a || b && !(a && b);
-    }
-
-    boolean iguales(int[] xs, int[] ys) {
-        boolean res = true;
-
-        for (int i = 0; i < xs.length; i++) {
-            if (xs[i] != ys[i]) {
-                res = false;
-            }
-        }
-        return res;
-    }
-
     boolean ordenado(int[] xs) {
         boolean res = true;
-        for (int i = 0; i < xs.length; i++) {
+        for (int i = 0; i < xs.length-1; i++) {
             if (xs[i] > xs [i+1]) {
                 res = false;
             }
@@ -165,19 +174,17 @@ class Funciones {
     }
 
     int maximo(int[] xs) {
-        int res = 0;
-        for (int i = 0; i <= xs.length; i++) {
-            if (xs[i] > res) res = i;
+        int res = xs[0];
+        for (int i = 0; i < xs.length; i++) {
+            if (xs[i] > res) res = xs[i];
         }
         return res;
     }
 
     boolean todosPositivos(int[] xs) {
-        boolean res = false;
+        boolean res = true;
         for (int x : xs) {
-            if (x > 0) {
-                res = true;
-            } else {
+            if (x <= 0) {
                 res = false;
             }
         }
