@@ -1,28 +1,39 @@
 package aed;
 
 public class Agenda {
+    private Fecha _fechaActual;
+    private ArregloRedimensionableDeRecordatorios _recordatorios;
 
     public Agenda(Fecha fechaActual) {
-        // Implementar
+        _fechaActual = fechaActual;
+        _recordatorios = new ArregloRedimensionableDeRecordatorios();
     }
 
     public void agregarRecordatorio(Recordatorio recordatorio) {
-        // Implementar
+        _recordatorios.agregarAtras(recordatorio);
     }
 
     @Override
     public String toString() {
-        // Implementar
-        return "";
+        String ret = "";
+
+        ret += _fechaActual.toString() + "\n" + "=====" + "\n";
+
+        for (int i = 0; i < _recordatorios.longitud(); i++) {
+            if (_recordatorios.obtener(i).fecha().equals(_fechaActual)) {
+                ret += _recordatorios.obtener(i).toString() + "\n";
+            }
+        }
+
+        return ret;
     }
 
     public void incrementarDia() {
-        // Implementar
+        _fechaActual.incrementarDia();
     }
 
     public Fecha fechaActual() {
-        // Implementar
-        return null;
+        return _fechaActual;
     }
 
 }
