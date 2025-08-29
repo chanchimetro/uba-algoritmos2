@@ -51,11 +51,18 @@ class ArregloRedimensionableDeRecordatorios {
     }
 
     public ArregloRedimensionableDeRecordatorios(ArregloRedimensionableDeRecordatorios vector) {
-        // Implementar
+        _listaRecordatorios = new Recordatorio[0];
+        for (int i = 0; i < vector.longitud(); i++) {
+            this.agregarAtras(vector.obtener(i));
+        }
     }
 
     public ArregloRedimensionableDeRecordatorios copiar() {
-        // Implementar
-        return null;
+        ArregloRedimensionableDeRecordatorios nuevoArreglo = new ArregloRedimensionableDeRecordatorios();
+        for (int i = 0; i < this.longitud(); i++) {
+            nuevoArreglo.agregarAtras(this.obtener(i));
+        }
+
+        return nuevoArreglo;
     }
 }
