@@ -161,7 +161,6 @@ public class ListaEnlazada<T>{
 
     public class ListaIterador{
         int contador = 0;
-        Nodo actual = primero;
 
         public boolean haySiguiente() {
 	        return contador != longitud;
@@ -172,14 +171,7 @@ public class ListaEnlazada<T>{
         }
 
         public T siguiente() {
-	        T ret = actual.valor;
-            
-            if (actual == null) {
-                actual = primero;
-            } else {
-                actual = actual.sig;
-            }
-
+	        T ret = obtener(contador);
             contador += 1;
 
             return ret;
@@ -187,14 +179,8 @@ public class ListaEnlazada<T>{
         
 
         public T anterior() {
-            if(actual == null) {
-                actual = ultimo;
-            }else {
-                actual = actual.prev;
-            }
-
-            T ret = actual.valor;
             contador -= 1;
+            T ret = obtener(contador);
 
             return ret;
         }
@@ -202,6 +188,7 @@ public class ListaEnlazada<T>{
 
     public ListaIterador iterador() {
 	    ListaIterador ret = new ListaIterador();
+        
         return ret;
     }
 
