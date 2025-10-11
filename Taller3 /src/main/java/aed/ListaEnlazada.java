@@ -160,27 +160,27 @@ public class ListaEnlazada<T>{
     }
 
     public class ListaIterador{
-        int contador = 0;
+        int actual = 0;
 
         public boolean haySiguiente() {
-	        return contador != longitud;
+	        return actual != longitud;
         }
         
         public boolean hayAnterior() {
-	        return contador != 0;
+	        return actual != 0;
         }
 
         public T siguiente() {
-	        T ret = obtener(contador);
-            contador += 1;
+	        T ret = obtener(actual);
+            actual += 1;
 
             return ret;
         }
         
 
         public T anterior() {
-            contador -= 1;
-            T ret = obtener(contador);
+            actual -= 1;
+            T ret = obtener(actual);
 
             return ret;
         }
