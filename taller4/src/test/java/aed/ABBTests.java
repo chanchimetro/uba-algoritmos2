@@ -377,10 +377,18 @@ class ABBTests {
             if (i % 2 == 0) {
                 assertFalse(conjunto.pertenece(k));
             } else {
-                assertTrue(conjunto.pertenece(k));
-                conjunto.eliminar(k);
+                System.out.println(k);
+                if(k == 101999) {
+                    assertTrue(conjunto.pertenece(k));
+                    conjunto.eliminar(k);
 
-                assertFalse(conjunto.pertenece(k));
+                    assertFalse(conjunto.pertenece(k));
+                } else {
+                    assertTrue(conjunto.pertenece(k));
+                    conjunto.eliminar(k);
+                    //System.out.println(k);
+                    assertFalse(conjunto.pertenece(k));
+                }
             }
         }
         assertEquals(0, conjunto.cardinal());
