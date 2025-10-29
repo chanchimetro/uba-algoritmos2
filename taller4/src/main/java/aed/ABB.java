@@ -210,18 +210,29 @@ public class ABB<T extends Comparable<T>> {
     }
 
     public String toString(){
-        throw new UnsupportedOperationException("No implementada aun");
+        String str = "";
+        ABB_Iterador iterador = new ABB_Iterador();
+
+        if (cardinal() > 0) {
+            while (iterador.haySiguiente()) {
+                str += iterador.siguiente().toString();
+                if (iterador.haySiguiente()) {
+                    str += ",";
+                }
+            }
+        }
+
+        return "{"+str+"}";
     }
 
     public class ABB_Iterador {
         private Nodo _actual;
 
         public boolean haySiguiente() {            
-            return _actual._valor != maximo();
+            return (cardinal() > 0 && _actual == null) || _actual._valor.compareTo(maximo()) != 0;
         }
     
-        public T siguiente() { 
-
+        public T siguiente() {
             if (_actual == null) {
                 _actual = new Nodo(_raiz._valor);
                 _actual._der = _raiz;
@@ -230,7 +241,13 @@ public class ABB<T extends Comparable<T>> {
             if (_actual._der != null) {
                 _actual = sucesorInmediato(_actual);
             } else {
-                _actual = _actual._padre; //deberia encontrar el primero a la derecha si el actual es mayor a su padre!
+                Nodo auxNodo = _actual._padre;
+                
+                while(_actual._valor.compareTo(auxNodo._valor) > 0) {
+                    auxNodo = auxNodo._padre;
+                }
+
+                _actual = auxNodo;
             }
 
             return _actual._valor;
