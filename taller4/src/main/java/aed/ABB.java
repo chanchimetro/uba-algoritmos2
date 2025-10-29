@@ -5,7 +5,6 @@ package aed;
 public class ABB<T extends Comparable<T>> {
     private Nodo _raiz;
 
-
     private class Nodo {
         T _valor;
         Nodo _der;
@@ -82,34 +81,34 @@ public class ABB<T extends Comparable<T>> {
     }
 
     public void insertar(T elem){
-    if (!pertenece(elem)) {
-        if (_raiz == null) {
-            _raiz = new Nodo(elem);
-            return;
-        }
-        
-        Nodo actual = _raiz;
-        Nodo padreActual = null;
-        Nodo nuevo = new Nodo(elem);
+        if (!pertenece(elem)) {
+            if (_raiz == null) {
+                _raiz = new Nodo(elem);
+                return;
+            }
+            
+            Nodo actual = _raiz;
+            Nodo padreActual = null;
+            Nodo nuevo = new Nodo(elem);
 
-        while (actual != null) {
-           if (elem.compareTo(actual._valor) > 0) {
-            padreActual = actual;
-            actual = actual._der;
-           } else {
-            padreActual = actual;
-            actual = actual._izq;
-           }
-        }
+            while (actual != null) {
+                if (elem.compareTo(actual._valor) > 0) {
+                    padreActual = actual;
+                    actual = actual._der;
+                } else {
+                    padreActual = actual;
+                    actual = actual._izq;
+                }
+            }
 
-        nuevo._padre = padreActual;
-        if (elem.compareTo(padreActual._valor) > 0) {
-            padreActual._der = nuevo;
-        } else {
-            padreActual._izq = nuevo;
+            nuevo._padre = padreActual;
+            if (elem.compareTo(padreActual._valor) > 0) {
+                padreActual._der = nuevo;
+            } else {
+                padreActual._izq = nuevo;
+            }
         }
     }
-}
 
     public boolean pertenece(T elem){
         boolean pertenece = false;
