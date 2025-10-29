@@ -1,10 +1,8 @@
 package aed;
 
-import aed.ABB.HandleABB;
-
 public class SistemaPedidos {
     ABB<Pedido> _abb;
-    ListaEnlazada<HandleABB> _lista;
+    ListaEnlazada<ABB.HandleABB> _lista;
 
     public SistemaPedidos(){
         _abb = new ABB<>();
@@ -12,7 +10,7 @@ public class SistemaPedidos {
     }
 
     public void agregarPedido(Pedido pedido){
-        Handle handle = _abb.insertar(pedido);
+        ABB.HandleABB handle = _abb.insertar(pedido);
         _lista.agregarAtras(handle);
     }
 
@@ -20,8 +18,8 @@ public class SistemaPedidos {
         Pedido pedido = null;
         
         if (_lista.longitud() > 0) {
-            Handle handle = _lista.obtener(0);
-            pedido = handle.valor();
+            ABB.HandleABB handle = _lista.obtener(0);
+            pedido = (Pedido) handle.valor();
             handle.eliminar();
             _lista.eliminar(0);
         }
@@ -37,8 +35,9 @@ public class SistemaPedidos {
         String string = "";
         
         for (int i = 0; i < _lista.longitud(); i++) {
-            string += _lista.obtener(i)._id;
-            if (i  < _lista.longitud()-1 ) {
+            Pedido p = (Pedido) _lista.obtener(i).valor();
+            string += p.toString();
+            if (i  < _lista.longitud()-1) {
                 string += ", ";
             }
         }

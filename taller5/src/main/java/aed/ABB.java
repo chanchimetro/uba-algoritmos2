@@ -29,13 +29,46 @@ public class ABB<T extends Comparable<T>> {
         }
 
         public void eliminar() {
-            eliminar(_nodo._valor);
+            ABB.this.eliminar(_nodo._valor);
             _nodo = null;
         }
     }
 
     public ABB() {
         _raiz = null;
+    }
+
+    public int cardinal() {
+        int cardinal = 0;
+        Nodo actual = _raiz;
+        
+        if (actual != null) {
+            cardinal++;
+            if (actual._der != null) {
+                cardinal += cardinalRecursivo(actual._der);
+            }
+            if (actual._izq != null) {
+                cardinal += cardinalRecursivo(actual._izq);
+            }
+        }
+
+        return cardinal;
+    }
+
+    private int cardinalRecursivo(Nodo actual){
+        int ret = 0;
+
+        if (actual != null) {
+            ret++;
+            if (actual._der != null) {
+                ret += cardinalRecursivo(actual._der);
+            }
+            if (actual._izq != null) {
+                ret += cardinalRecursivo(actual._izq);
+            }
+        }
+
+        return ret;
     }
 
     public T minimo(){
@@ -48,6 +81,18 @@ public class ABB<T extends Comparable<T>> {
         }
 
         return min;
+    }
+
+    public T maximo(){
+        Nodo actual = _raiz;
+        T max = actual._valor;
+
+        while (actual._der != null) {
+            actual = actual._der; 
+            max = actual._valor;
+        }
+
+        return max;
     }
 
     public HandleABB insertar(T elem){
@@ -195,7 +240,7 @@ public class ABB<T extends Comparable<T>> {
             while (iterador.haySiguiente()) {
                 str += iterador.siguiente().toString();
                 if (iterador.haySiguiente()) {
-                    str += ",";
+                    str += ", ";
                 }
             }
         }
