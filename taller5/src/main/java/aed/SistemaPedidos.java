@@ -1,29 +1,52 @@
 package aed;
 
+import aed.ABB.HandleABB;
+
 public class SistemaPedidos {
-    /* COMPLETAR atributos privados: ¿cómo se representan los pedidos? */
+    ABB<Pedido> _abb;
+    ListaEnlazada<HandleABB> _lista;
 
     public SistemaPedidos(){
-        throw new UnsupportedOperationException("No implementado aún");
+        _abb = new ABB<>();
+        _lista = new ListaEnlazada<>();
     }
 
     public void agregarPedido(Pedido pedido){
-        throw new UnsupportedOperationException("No implementado aún");
+        Handle handle = _abb.insertar(pedido);
+        _lista.agregarAtras(handle);
     }
 
     public Pedido proximoPedido(){
-        throw new UnsupportedOperationException("No implementado aún");
+        Pedido pedido = null;
+        
+        if (_lista.longitud() > 0) {
+            Handle handle = _lista.obtener(0);
+            pedido = handle.valor();
+            handle.eliminar();
+            _lista.eliminar(0);
+        }
+        
+        return pedido;
     }
 
     public Pedido pedidoMenorId(){
-        throw new UnsupportedOperationException("No implementado aún");
+        return _abb.minimo();
     }
 
     public String obtenerPedidosEnOrdenDeLlegada(){
-        throw new UnsupportedOperationException("No implementado aún");
+        String string = "";
+        
+        for (int i = 0; i < _lista.longitud(); i++) {
+            string += _lista.obtener(i)._id;
+            if (i  < _lista.longitud()-1 ) {
+                string += ", ";
+            }
+        }
+
+        return "[" + string + "]";
     }
 
     public String obtenerPedidosOrdenadosPorId(){
-        throw new UnsupportedOperationException("No implementado aún");
+        return _abb.toString();
     }
 }
